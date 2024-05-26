@@ -1,0 +1,24 @@
+type: remote_edu
+files:
+  - name: main.sh
+    visible: true
+    learner_created: false
+  - name: test/__init__.py
+    visible: false
+    learner_created: false
+  - name: test/file.txt
+    visible: false
+    learner_created: false
+  - name: test/index.html
+    visible: false
+    learner_created: false
+  - name: test/simple_http_server.py
+    visible: false
+    learner_created: false
+  - name: tests.py
+    visible: false
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/23031#comment
+check_profile: hyperskill_python
+status: Unchecked
+record: -1
