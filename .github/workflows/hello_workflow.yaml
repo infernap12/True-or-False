@@ -8,4 +8,4 @@ jobs:
       - name: Hello world using echo
         run: echo "$(<True or False/task/main.sh)"
       - name: Hello world using cat
-        run: cat True or False/task/main.sh
+        run: cat "True or False/task/main.sh"
