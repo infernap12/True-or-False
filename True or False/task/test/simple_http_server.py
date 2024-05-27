@@ -5,7 +5,6 @@ A simple HTTP Server
 import base64
 import json
 import logging
-import os
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from random import choice, seed
@@ -174,10 +173,8 @@ class CustomHandler(BaseHTTPRequestHandler):
 
 
 def simple_server():
-    os.system("hostname -I")
     srv = HTTPServer(('', PORT), CustomHandler)
     logger.log(level=logging.DEBUG, msg=f"Server started on port {PORT}")
-    print(srv.server_address)
     srv.serve_forever()
 
 

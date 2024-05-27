@@ -9,18 +9,18 @@ from hstest import CheckResult, StageTest, dynamic_test, TestedProgram
 from test.simple_http_server import simple_server
 
 welcome_message = """Welcome to the True or False Game!
-{"username": "rihanna", "password": "785bdf267c5244"}"""
+Login message: Logged in successfully!"""
 
 DELAY = 0.09
 FILES_TO_DELETE = ["ID_card.txt", "cookie.txt"]
 URL = "http://0.0.0.0:8000/health"
-ID_CARD = "ID_card.txt"
+cookie = "cookie.txt"
 
 # Testing welcome message
 test_data_1 = [
     {
         "expected_start": welcome_message,
-        "error_response": 'Welcome to the True or False Game!\n{"username": "*******", "password": "**************"}',
+"error_response": 'Welcome to the True or False Game!\nLogin message: L***** ** ************!',
         "test_values": [
         ]
     },
@@ -89,6 +89,7 @@ class ToFTest(StageTest):
 
     def after_all_tests(self):
         ToFTest.delete_files(FILES_TO_DELETE)
+        pass
 
     @dynamic_test()
     def test1(self):
@@ -107,7 +108,7 @@ class ToFTest(StageTest):
     @dynamic_test()
     def test3(self):
         """Tests if file exists"""
-        return ToFTest.file_exists_test(ID_CARD)
+        return ToFTest.file_exists_test(cookie)
 
 
 if __name__ == '__main__':
