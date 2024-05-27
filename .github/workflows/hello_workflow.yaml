@@ -6,6 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Hello world using echo
-        run: echo "$(<hello.txt)"
+        run: echo "$(<True or False/task/main.sh)"
       - name: Hello world using cat
         run: cat hello.txt
