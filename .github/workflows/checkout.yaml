@@ -1,0 +1,9 @@
+name: branch_checkout
+on: [push]
+jobs:
+  external-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: abystoma/external-workflow@branch
+      - name: Greetings
+        run: echo "$(<greetings.txt)"
