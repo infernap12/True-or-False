@@ -1,0 +1,93 @@
+<div class="step-text">
+<p>Bash provides a variety of functionalities including conditional statements. We have already looked at if-else statements and even though they get the job done, we will look at an alternative way. A case statement is easy to read when there are multiple conditional statements. Because of this, case statements are a great addition to a bash programmer's arsenal.</p><h5 id="case-statements">Case statements</h5><p>First, let's look at the general syntax for case statements in bash.</p><pre><code class="language-bash">case $variable in
+    condition-1 )
+        commands;;
+    condition-2 )
+        commands;;
+    condition-3 )
+        commands;;
+    condition-N )
+        commands;;
+    * )
+        commands;;
+esac</code></pre><p>We will take a look at an implementation of if-else statements in bash and then see what it will look like when we use case statements instead. We will write our script in the file <code class="language-bash">script.sh</code>.</p><pre><code class="language-bash">#!/usr/bin/env bash
+
+if [[ "${1}" == "" ]]; then
+	echo "No option was selected."
+
+elif [[ "${1}" == "1" ]]; then
+	echo "You selected '1'."
+
+elif [[ "${1}" == "2" ]]; then
+	echo "You selected '2'."
+
+elif [[ "${1}" == "3" ]]; then
+	echo "You selected '3'."
+    
+else
+	echo "Unknown number '${1}'."
+
+fi</code></pre><p>Implementing the same logic using case statements will look like this;</p><pre><code class="language-bash">#!/usr/bin/env bash
+
+case "${1}" in
+
+    "")       
+        echo "No option was selected." 
+        ;;
+    1)     
+        echo "You selected '1'." 
+        ;;
+    2)     
+        echo "You selected '2'." 
+        ;;
+    3)     
+        echo "You selected '3'." 
+        ;;
+    *)     
+        echo "Unknown number '${1}'." 
+        ;;
+
+esac</code></pre><p>When comparing case statements with if statements they are indeed easier to read. Case statements are pretty simple and straightforward. They check if a value matches another predefined value and execute commands based on it. The statement begins with <code class="language-bash">case</code> then we specify a value that will determine which condition to work with. After that, we write <code class="language-bash">in</code> and then set our conditions. The end of each condition is marked with <code class="language-bash">)</code> after which its corresponding commands are written. The commands themselves end with <code class="language-bash">;;</code>. After specifying all our conditions we may add a default case. This is done using <code class="language-bash">*</code>. We can end our case statement by writing the case command backward: <code class="language-bash">esac</code>.</p><h5 id="the-shift-statement">The shift statement</h5><p>When working with a long list of arguments, it can be ideal to skip over them after they are processed. This is where the <code class="language-bash">shift</code> command comes to our rescue. <code class="language-bash">shift</code> is a built-in bash command that moves/shifts parameters to their left. The leftmost arguments that were shifted are removed. This command takes an integer as an argument which determines how many positions should be shifted. The syntax for the command is <code class="language-bash">shift n</code>; where n is the argument for the command. In case we don't supply an argument, the default value is 1.</p><p>Let's take a look at a bash script that implements the <code class="language-bash">shift</code> command. Below we have a script that takes the answers of multiple-choice questions as parameters. Here, the examinees have the ability to skip questions to avoid negative marking. They can skip answers with either <code class="language-bash">-</code> or <code class="language-bash">--</code>.</p><pre><code class="language-bash">#!/usr/bin/env bash
+
+answers=("a" "d" "c" "a" "a")
+total_score=0
+
+for (( i = 0; i &lt; 5; i++));
+do
+    case "${1}" in
+
+        ${answers[i]})
+            ((total_score++))
+            ;;
+        "-"|"--")
+            ;;
+        *)
+            ((total_score--))
+            ;;
+
+    esac
+    shift 1
+done
+
+echo "Total score is: $total_score"</code></pre><p>Executing the program with the command below;</p><pre><code class="language-no-highlight">bash script.sh a d -- c a</code></pre><p>will give the following output:</p><pre><code class="language-no-highlight">Total score is: 2</code></pre><p>The <code class="language-bash">${1}</code> in the case statement selects the first argument. In this case, <code class="language-bash">a</code> is passed to the case statement. The first condition of the case statement is satisfied. A score is added to <code class="language-bash">total_score</code>. The same thing happens with the second argument; <code class="language-bash">d</code>. The third argument satisfies the second condition. The fourth argument is incorrect so it satisfies the third condition in our case statement. This decreases the <code class="language-bash">total_score</code> back to 1. But the fifth argument takes<code class="language-bash">total_score</code> back to 2.</p><p>In each iteration of the loop, the arguments are shifted to the left in this program. Because of this, <code class="language-bash">${1}</code> can be used to capture all the arguments. Indeed, we do not have to use <code class="language-bash">${2}</code> <code class="language-bash">${3}</code> <code class="language-bash">${4}</code> or <code class="language-bash">${5}</code> to access the arguments. This makes things much more easy and simple. </p><h5 id="multiple-arguments-in-a-condition">Multiple arguments in a condition</h5><p>As you might have noticed, the second condition has two options. Either <code class="language-bash">-</code> or <code class="language-bash">--</code> can satisfy the condition. This is done with the help of the <code class="language-bash">|</code> bitwise operator. The <code class="language-bash">|</code> bitwise operator performs binary OR operation. This operator works somewhat like an <em>OR</em> logical operator which means that either <code class="language-bash">-</code> or <code class="language-bash">--</code> can be used to skip answers without negative markings. Let's improvise our previous script file and take a look at a simple implementation of this operator:</p><pre><code class="language-bash">#!/usr/bin/env bash
+
+case "${1}" in
+
+    "")       
+        echo "No option was selected." 
+        ;;
+    1 | 'a')     
+        echo "You either selected '1' or 'a'." 
+        ;;
+    2 | 'b')     
+        echo "You either selected '2' or 'b'." 
+        ;;
+    3 | 'c')     
+        echo "You either selected '3' or 'c'." 
+        ;;
+    *)     
+        echo "Unknown character '${1}'." 
+        ;;
+
+esac</code></pre><p>Here, the second, third, and fourth conditions can be satisfied by either of the arguments mentioned. </p><h5 id="conclusion">Conclusion</h5><p>We looked at case statements and argument parsing in detail on this topic. The major points we discussed were:-</p><ul><li><p>Case statements are conditional statements just like if-else statements.</p></li><li><p>Case statements are easy to read, maintain, and debug.</p></li><li><p>The <code class="language-bash">shift</code> command helps us parse arguments by shifting them to the left.</p></li><li><p>The <code class="language-bash">shift</code> command also takes integers as arguments. The syntax is <code class="language-bash">shift n</code>, where n is a positive integer.</p></li><li><p>The <code class="language-bash">|</code> bitwise operator can be used to include multiple arguments in a condition.</p></li></ul>
+</div>

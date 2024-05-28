@@ -1,0 +1,13 @@
+type: code
+files:
+  - name: task.sh
+    visible: true
+    highlight_level: NONE
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/19970#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Mon, 27 May 2024 14:17:49 UTC"
+record: -1
+submission_language: shell

@@ -1,0 +1,24 @@
+<div class="step-text">
+<p></p>
+<p>You are given the following bash script named <code class="language-bash">choose.sh</code>.</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+
+function add() {
+    echo $(( $1 + $2 ))
+}
+
+function subtract() {
+    echo $(( $1 - $2 ))
+}
+
+case $1 in
+    add )
+        add $2 $3;;
+    subtract )
+        subtract $2 $3;;
+    * )
+        echo "unknown operation";;
+esac</code></pre>
+<p>Write a command to execute this script from the command line to subtract 5 from 3.</p>
+<p></p><div class="alert alert-primary"> Write the command based on the following format; <code class="language-bash">bash choose.sh ...</code>. Include necessary arguments in this command to give the expected result. </div><p></p>
+</div>

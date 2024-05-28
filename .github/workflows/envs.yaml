@@ -1,0 +1,24 @@
+name: environment_variable_tutorial
+on: [push]
+env:
+  # This custom environment variable is available to all the jobs and steps
+  TOPIC: Envs and secrets
+jobs:
+  job1:
+    env:
+      # This custom environment variable is available for all the steps
+      section: Dev tools
+    runs-on: ubuntu-latest
+    steps:
+      - name: step 1
+        env:
+          # This custom environment variable is available to only this specific step
+          platform: the platform
+        # Referencing the environment variables
+        run: echo "Welcome to the ${{ env.TOPIC }} topic from $section section at $platform"
+      - name: step 2
+        run: |
+          echo "The job ID is $GITHUB_JOB"   
+          echo "The name of the event triggered by the workflow is $GITHUB_EVENT_NAME"  
+          echo "The name of the workflow is $GITHUB_WORKFLOW" 
+          echo "The runner of the workflow is $RUNNER_OS"
