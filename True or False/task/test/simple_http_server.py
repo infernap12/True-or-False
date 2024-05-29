@@ -72,7 +72,7 @@ questions = [
 
 
 class CustomHandler(BaseHTTPRequestHandler):
-    seed(9876543210)
+    seed(543210)
 
     def log_message(self, format_, *args):
         pass

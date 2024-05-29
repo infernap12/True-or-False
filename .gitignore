@@ -1,0 +1,19 @@
+# course config files
+*.yaml
+
+# gradle
+.gradle/
+build
+
+
+# idea config
+.idea
+
+# old stages
+/True or False/*
+!/True or False/task/
+/True or False/task/*
+!/True or False/task/main.sh
+!/True or False/task/cookie.txt
+!/True or False/task/question.txt
+!/True or False/task/ID_card.txt

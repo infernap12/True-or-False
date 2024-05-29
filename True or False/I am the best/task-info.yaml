@@ -18,7 +18,19 @@ files:
   - name: tests.py
     visible: false
     learner_created: false
+  - name: cookie.txt
+    visible: true
+    learner_created: true
+  - name: question.txt
+    visible: true
+    learner_created: true
+  - name: ID_card.txt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/23034#comment
 check_profile: hyperskill_python
-status: Unchecked
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Wed, 29 May 2024 11:19:50 UTC"
 record: -1
